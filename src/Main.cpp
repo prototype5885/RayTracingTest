@@ -271,9 +271,9 @@ int main(int, char **)
   // cl(4) = _RGB32(0, 0, 200)
   std::array<uint32_t, 4> cl = {RGB32(120, 65, 45).ReturnRGB(), RGB32(0, 0, 100).ReturnRGB(), RGB32(255, 255, 0).ReturnRGB(), RGB32(0, 0, 200).ReturnRGB()};
 
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(0.0, 1.0);
+  // RANDOMIZE TIMER
+  std::mt19937 gen(std::random_device());
+  std::uniform_real_distribution<> randFloat(0.0, 1.0);
 
   // FOR k = 1 TO spheres
   //     READ a, b, c, d
@@ -295,7 +295,7 @@ int main(int, char **)
 
     c[k][4] = initial_x;
 
-    c[k][1] = -(initial_y_for_bounce + 0.3 + 2.0 * dis(gen));
+    c[k][1] = -(initial_y_for_bounce + 0.3 + 2.0 * randFloat(gen));
     c[k][5] = initial_z;
     c[k][3] = 0.1;
     r[k] = radius;
