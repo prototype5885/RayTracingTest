@@ -272,7 +272,8 @@ int main(int, char **)
   std::array<uint32_t, 4> cl = {RGB32(120, 65, 45).ReturnRGB(), RGB32(0, 0, 100).ReturnRGB(), RGB32(255, 255, 0).ReturnRGB(), RGB32(0, 0, 200).ReturnRGB()};
 
   // RANDOMIZE TIMER
-  std::mt19937 gen(std::random_device());
+  std::random_device rd;
+  std::mt19937 gen(rd());
   std::uniform_real_distribution<> randFloat(0.0, 1.0);
 
   // FOR k = 1 TO spheres
