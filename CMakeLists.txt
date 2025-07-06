@@ -16,19 +16,5 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
-if(UNIX)
-  find_package(SDL2 REQUIRED)
-elseif(WIN32)
-endif()
-
-if(UNIX)
-  target_link_libraries(${EXECUTABLE_NAME} -lm ${SDL2_LIBRARIES})
-elseif(WIN32)
-add_executable(${EXECUTABLE_NAME} WIN32 
-        src/Main.cpp
-        )
-
-  target_link_libraries(${EXECUTABLE_NAME} -lmingw32 -lSDL2main -lSDL2 -static-libstdc++)
-endif()
-
-
+add_executable(${EXECUTABLE_NAME} src/Main.cpp)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE -lmingw32 -lSDL2main -lSDL2  -static-libstdc++)

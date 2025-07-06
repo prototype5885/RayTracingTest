@@ -55,5 +55,6 @@ dkms.conf
 /.idea
 *.sh
 /.vscode
+*.zip
 
 config.txt
