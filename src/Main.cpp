@@ -17,10 +17,7 @@
 #include <unordered_map>
 #include <filesystem>
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::to_string;
+using namespace std;
 
 #define WHITE_COLOR ((0 << 24) | (255 << 16) | (255 << 8) | 255)
 #define GREY_COLOR ((0 << 24) | (50 << 16) | (50 << 8) | 50)
@@ -80,7 +77,7 @@ public:
     b *= multiplier;
   }
 
-  void Display() const { cout << "R: " << static_cast<int>(r) << ", G: " << static_cast<int>(g) << ", B: " << static_cast<int>(b) << std::endl; }
+  void Display() const { cout << "R: " << static_cast<int>(r) << ", G: " << static_cast<int>(g) << ", B: " << static_cast<int>(b) << endl; }
 };
 
 typedef struct
@@ -89,34 +86,34 @@ typedef struct
   uint32_t *pixels;
 } DisplayData;
 
-std::unordered_map<std::string, std::string> readConfig()
+unordered_map<string, string> readConfig()
 {
   const char *filename = "config.txt";
 
-  std::unordered_map<std::string, std::string> config;
-  std::string line;
+  unordered_map<string, string> config;
+  string line;
 
-  std::ifstream fileExists(filename);
+  ifstream fileExists(filename);
   if (!fileExists.good())
   {
-    std::ofstream file(filename);
+    ofstream file(filename);
     file << "fullscreen=false\n";
     file << "width=1280\n";
     file << "height=720\n";
     file << "resolutionPercentage=100\n";
   }
 
-  std::ifstream file(filename);
+  ifstream file(filename);
 
-  while (std::getline(file, line))
+  while (getline(file, line))
   {
     if (line.empty() || line[0] == '#')
       continue;
 
-    std::istringstream iss(line);
-    std::string key, value;
+    istringstream iss(line);
+    string key, value;
 
-    if (std::getline(iss, key, '=') && std::getline(iss, value))
+    if (getline(iss, key, '=') && getline(iss, value))
     {
       config[key] = value;
     }
@@ -127,10 +124,10 @@ std::unordered_map<std::string, std::string> readConfig()
 
 long GetMicroTime()
 {
-  auto const now = std::chrono::steady_clock::now();
+  auto const now = chrono::steady_clock::now();
 
   auto const duration = now.time_since_epoch();
-  return std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
+  return chrono::duration_cast<chrono::microseconds>(duration).count();
 }
 
 int CalculateAverageFps(int executionTime)
@@ -177,10 +174,10 @@ int main(int, char **)
 
   try
   {
-    windowWidth = std::stoi(config["width"]);
-    windowHeight = std::stoi(config["height"]);
+    windowWidth = stoi(config["width"]);
+    windowHeight = stoi(config["height"]);
 
-    resPercentage = std::stoi(config["resolutionPercentage"]);
+    resPercentage = stoi(config["resolutionPercentage"]);
 
     if (config["fullscreen"] == "true")
     {
@@ -239,7 +236,7 @@ int main(int, char **)
 
   // READ spheres
   // DATA 6
-  const std::vector<std::array<float, 4>> sphereDataRaw = {
+  const vector<array<float, 4>> sphereDataRaw = {
       {-0.3, -0.8, 3, 0.6},
       {0.9, -1.4, 3.5, 0.35},
       {0.7, -0.45, 2.5, 0.4},
@@ -250,9 +247,9 @@ int main(int, char **)
   const int spheresCount = sphereDataRaw.size();
 
   // DIM c(spheres, 9), r(spheres), q(spheres), cl(4) AS _UNSIGNED LONG
-  std::vector<std::array<float, 9>> c(spheresCount);
-  std::vector<float> r(spheresCount);
-  std::vector<float> q(spheresCount);
+  vector<array<float, 9>> c(spheresCount);
+  vector<float> r(spheresCount);
+  vector<float> q(spheresCount);
 
   // w = scrw / 2
   // h = scrh / 4
@@ -265,12 +262,12 @@ int main(int, char **)
   // cl(2) = _RGB32(0, 0, 100)
   // cl(3) = _RGB32(255, 255, 0)
   // cl(4) = _RGB32(0, 0, 200)
-  std::array<uint32_t, 4> cl = {RGB32(120, 65, 45).ReturnRGB(), RGB32(0, 0, 100).ReturnRGB(), RGB32(255, 255, 0).ReturnRGB(), RGB32(0, 0, 200).ReturnRGB()};
+  array<uint32_t, 4> cl = {RGB32(120, 65, 45).ReturnRGB(), RGB32(0, 0, 100).ReturnRGB(), RGB32(255, 255, 0).ReturnRGB(), RGB32(0, 0, 200).ReturnRGB()};
 
   // RANDOMIZE TIMER
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> randFloat(0.0, 1.0);
+  random_device rd;
+  mt19937 gen(rd());
+  uniform_real_distribution<> randFloat(0.0, 1.0);
 
   // FOR k = 1 TO spheres
   //     READ a, b, c, d
@@ -300,7 +297,7 @@ int main(int, char **)
   }
 
   // me(1) = -0.2: me(2) = -3: me(0) = c(1, 1): me(3) = _PI
-  std::array<float, 4> me = {c[0][4], -0.2, -3.0, M_PI};
+  array<float, 4> me = {c[0][4], -0.2, -3.0, M_PI};
 
   float mouseX = 0.0f;
   float mouseY = 0.0f;
@@ -620,7 +617,7 @@ int main(int, char **)
 
       if (timeToSleep > 0)
       {
-        std::this_thread::sleep_for(std::chrono::microseconds(timeToSleep));
+        this_thread::sleep_for(chrono::microseconds(timeToSleep));
       }
     }
 
