@@ -415,7 +415,6 @@ int main(int, char **)
     // go = (k_a + k_d + k_w + k_s = -1) * .2
     float goAng = -(kA * 90 + kD * -90 + kW * 180.0 - 180.0) * (M_PI / 180.0) - me[3];
 
-    // go = (kA + kD + kW + kS == -1) ? 0.2 * deltaTime : 0.0;
     float go = 0.0;
     uint8_t wasd = kA + kD + kW + kS;
     if (wasd == 1)
