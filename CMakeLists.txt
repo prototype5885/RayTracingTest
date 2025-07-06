@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.25)
-project(RayCastingGaem)
+project(RayTracing)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(EXECUTABLE_NAME RayCastingGaem.exe)
+set(EXECUTABLE_NAME RayTracing)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
