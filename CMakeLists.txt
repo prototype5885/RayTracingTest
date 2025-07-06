@@ -17,4 +17,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
 add_executable(${EXECUTABLE_NAME} src/Main.cpp)
+if(WIN32)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE -lmingw32 -lSDL2main -lSDL2  -static-libstdc++)
+elseif(UNIX)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE  -lSDL2main -lSDL2  -static-libstdc++)
+endif()

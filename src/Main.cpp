@@ -1,10 +1,7 @@
-#if defined(_WIN32) || defined(_WIN64)
 #include <SDL2/SDL.h>
-#include <array>
-#endif
-
 #include <math.h>
 
+#include <array>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
