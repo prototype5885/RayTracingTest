@@ -1,7 +1,6 @@
 #if defined(_WIN32) || defined(_WIN64)
 #include <SDL2/SDL.h>
 #include <array>
-#include <windows.h>
 #endif
 
 #include <math.h>
@@ -464,7 +463,7 @@ int main(int, char **)
         float x = me[0];
         float y = me[1];
         float z = me[2];
-        byte ba = 3;
+        uint8_t ba = 3;
 
         // dx = j - w: dy = h - i: dz = scrw
         float dx = j - w;
