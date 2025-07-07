@@ -294,7 +294,6 @@ int main(int, char **)
   float mouseY = 0.0f;
 
   const uint8_t *keyStates = SDL_GetKeyboardState(nullptr);
-  bool limitSpeed = false;
   float deltaTime = 1.0f;
   long currentTime = GetMicroTime();
 
@@ -600,17 +599,6 @@ int main(int, char **)
     SDL_UnlockTexture(texture);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
     SDL_RenderPresent(renderer);
-
-    if (limitSpeed)
-    {
-      int executionTime = GetMicroTime() - startTime;
-      int timeToSleep = 16666 - executionTime;
-
-      if (timeToSleep > 0)
-      {
-        this_thread::sleep_for(chrono::microseconds(timeToSleep));
-      }
-    }
 
     long const elapsedTime = GetMicroTime() - currentTime;
     long const executionTimeWithSleep = GetMicroTime() - startTime;
