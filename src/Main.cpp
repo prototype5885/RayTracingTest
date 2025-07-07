@@ -57,6 +57,7 @@ unordered_map<string, string> readConfig()
     file << "width=1280\n";
     file << "height=720\n";
     file << "resolutionPercentage=100\n";
+    file << "linearFiltering=false\n";
   }
 
   ifstream file(filename);
@@ -126,6 +127,7 @@ int main(int, char **)
   int windowWidth = 1280;
   int windowHeight = 720;
   float resPercentage = 100;
+  string linearFiltering = "0";
   int windowMode = SDL_WINDOW_SHOWN;
 
   try
@@ -139,9 +141,10 @@ int main(int, char **)
     {
       windowMode = SDL_WINDOW_FULLSCREEN;
     }
-    else
+
+    if (config["linearFiltering"] == "true")
     {
-      windowMode = SDL_WINDOW_SHOWN;
+      linearFiltering = "2";
     }
   }
   catch (int error)
@@ -175,6 +178,7 @@ int main(int, char **)
   }
 
   SDL_RenderSetLogicalSize(renderer, scrw, scrh);
+  SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, linearFiltering.c_str());
 
   SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, scrw, scrh);
   if (texture == NULL)
