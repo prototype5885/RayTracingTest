@@ -146,10 +146,6 @@ int main(int, char **)
   }
   catch (int error)
   {
-    windowHeight = 1280;
-    windowWidth = 720;
-    resPercentage = 100;
-    windowMode = SDL_WINDOW_SHOWN;
   }
 
   int scrw = windowWidth * (resPercentage / 100.0);
