@@ -1,8 +1,6 @@
 #include <SDL2/SDL.h>
 #include <cmath>
 #include <array>
-#include <iostream>
-#include <ostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
