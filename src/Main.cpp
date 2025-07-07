@@ -27,42 +27,16 @@ typedef struct
   int8_t x, y;
 } Vector2i8;
 
-class RGB32
+uint32_t MergeRGB(uint8_t r, uint8_t g, uint8_t b)
 {
-private:
-  uint8_t r, g, b;
+  uint32_t rgb = 0;
+  rgb |= 0 << 24;
+  rgb |= r << 16;
+  rgb |= g << 8;
+  rgb |= b;
 
-public:
-  RGB32() : r(0), g(0), b(0) {}
-  RGB32(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
-
-  void CreateRGB(uint32_t rgb)
-  {
-    r = (rgb >> 16) & 0xFF;
-    g = (rgb >> 8) & 0xFF;
-    b = (rgb) & 0xFF;
-  }
-
-  uint32_t ReturnRGB()
-  {
-    uint32_t rgb = 0;
-    rgb |= 0 << 24;
-    rgb |= r << 16;
-    rgb |= g << 8;
-    rgb |= b;
-
-    return rgb;
-  }
-
-  void Multiply(float multiplier)
-  {
-    r *= multiplier;
-    g *= multiplier;
-    b *= multiplier;
-  }
-
-  void Display() const { cout << "R: " << static_cast<int>(r) << ", G: " << static_cast<int>(g) << ", B: " << static_cast<int>(b) << endl; }
-};
+  return rgb;
+}
 
 typedef struct
 {
@@ -246,7 +220,7 @@ int main(int, char **)
   // cl(2) = _RGB32(0, 0, 100)
   // cl(3) = _RGB32(255, 255, 0)
   // cl(4) = _RGB32(0, 0, 200)
-  array<uint32_t, 4> cl = {RGB32(120, 65, 45).ReturnRGB(), RGB32(0, 0, 100).ReturnRGB(), RGB32(255, 255, 0).ReturnRGB(), RGB32(0, 0, 200).ReturnRGB()};
+  array<uint32_t, 4> cl = {MergeRGB(120, 65, 45), MergeRGB(0, 0, 100), MergeRGB(255, 255, 0), MergeRGB(0, 0, 200)};
 
   // RANDOMIZE TIMER
   random_device rd;
@@ -510,8 +484,7 @@ int main(int, char **)
           if (n < 0)
           {
             //  PSET (j, scrh - i), _RGB32(128 * (scrh - i) / scrh + 128 * (dy * dy / dd), 128 * (scrh - i) / scrh + 128 * (dy * dy / dd), 200 + 55 * (dy * dy / dd))
-            RGB32 rgb = RGB32{uint8_t(128 * (scrh - iBasicSimulated) / scrh + 128 * (dy * dy / dd)), uint8_t(128 * (scrh - iBasicSimulated) / scrh + 128 * (dy * dy / dd)), uint8_t(200 + 55 * (dy * dy / dd))};
-            pixels[iCanvas * scrw + j] = rgb.ReturnRGB();
+            pixels[iCanvas * scrw + j] = MergeRGB(uint8_t(128 * (scrh - iBasicSimulated) / scrh + 128 * (dy * dy / dd)), uint8_t(128 * (scrh - iBasicSimulated) / scrh + 128 * (dy * dy / dd)), uint8_t(200 + 55 * (dy * dy / dd)));
             break;
           }
           else
