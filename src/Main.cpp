@@ -1,21 +1,14 @@
 #include <SDL2/SDL.h>
-#include <math.h>
-
-#include <array>
 #include <cmath>
-#include <cstddef>
-#include <cstdint>
-#include <cstdlib>
+#include <array>
 #include <iostream>
 #include <ostream>
-#include <string>
-#include <thread>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <random>
 #include <unordered_map>
-#include <filesystem>
+#include <chrono>
 
 using namespace std;
 
